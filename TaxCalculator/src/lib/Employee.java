@@ -47,6 +47,26 @@ public class Employee {
 		childIdNumbers = new LinkedList<String>();
 	}
 	
+	public int getMonthlySalary() {
+		return this.monthlySalary;
+	}
+	
+	public int getOtherMonthlyIncome() {
+		return this.otherMonthlyIncome;
+	}
+	
+	public int getAnnualDeductible() {
+		return this.annualDeductible;
+	}
+	
+	public boolean getIsMarried() {
+		return spouseIdNumber.equals("");
+	}
+	
+	public int getNumberOfChildren() {
+		return childIdNumbers.size();
+	}
+	
 	/**
 	 * Fungsi untuk menentukan gaji bulanan pegawai berdasarkan grade kepegawaiannya (grade 1: 3.000.000 per bulan, grade 2: 5.000.000 per bulan, grade 3: 7.000.000 per bulan)
 	 * Jika pegawai adalah warga negara asing gaji bulanan diperbesar sebanyak 50%
@@ -91,6 +111,6 @@ public class Employee {
 		
 		int monthWorkingInYear = (date.getYear() == dateJoined.getYear()) ? date.getMonthValue() - dateJoined.getMonthValue() : 12;
 		
-		return TaxFunction.calculateTax(monthlySalary, otherMonthlyIncome, monthWorkingInYear, annualDeductible, spouseIdNumber.equals(""), childIdNumbers.size());
+		return TaxFunction.calculateTax(this, monthWorkingInYear);
 	}
 }

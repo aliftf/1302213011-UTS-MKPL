@@ -28,11 +28,14 @@ public class TaxFunction {
 			numberOfChildren = 3;
 		}
 		
+		int totalMonthlyIncome = (employee.getMonthlySalary() + employee.getOtherMonthlyIncome()) * numberOfMonthWorking;
+		int taxFreeIncome = 54000000;
+		
 		if (employee.getIsMarried()) {
-			tax = (int) Math.round(0.05 * (((employee.getMonthlySalary() + employee.getOtherMonthlyIncome()) * numberOfMonthWorking) - employee.getAnnualDeductible() - (54000000 + 4500000 + (numberOfChildren * 1500000))));
-		}else {
-			tax = (int) Math.round(0.05 * (((employee.getMonthlySalary() + employee.getOtherMonthlyIncome()) * numberOfMonthWorking) - employee.getAnnualDeductible() - 54000000));
+			taxFreeIncome += 4500000 + (numberOfChildren * 1500000);
 		}
+		
+		tax = (int) Math.round(0.05 * (totalMonthlyIncome - employee.getAnnualDeductible() - taxFreeIncome));
 		
 		if (tax < 0) {
 			return 0;

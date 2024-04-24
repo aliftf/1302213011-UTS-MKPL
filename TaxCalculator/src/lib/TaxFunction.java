@@ -24,8 +24,8 @@ public class TaxFunction {
 		int totalMonthlyIncome = (employee.getMonthlySalary() + employee.getOtherMonthlyIncome()) * numberOfMonthWorking;
 		int taxFreeIncome = 54000000;
 		
-		if (employee.getIsMarried()) {
-			taxFreeIncome += 4500000 + (Math.min(employee.getNumberOfChildren(), 3) * 1500000);
+		if (employee.getFamily().getIsMarried()) {
+			taxFreeIncome += 4500000 + (Math.min(employee.getFamily().getNumberOfChildren(), 3) * 1500000);
 		}
 		
 		tax = (int) Math.round(0.05 * (totalMonthlyIncome - employee.getAnnualDeductible() - taxFreeIncome));

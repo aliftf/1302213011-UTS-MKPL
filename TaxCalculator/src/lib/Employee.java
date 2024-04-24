@@ -27,11 +27,7 @@ public class Employee {
 	private int otherMonthlyIncome;
 	private int annualDeductible;
 	
-	private String spouseName;
-	private String spouseIdNumber;
-
-	private List<String> childNames;
-	private List<String> childIdNumbers;
+	private Family family;
 	
 	public Employee(String employeeId, String firstName, String lastName, String idNumber, String address, LocalDate dateJoined, boolean isForeigner, Gender gender) {
 		this.employeeId = employeeId;
@@ -43,8 +39,7 @@ public class Employee {
 		this.isForeigner = isForeigner;
 		this.gender = gender;
 		
-		childNames = new LinkedList<String>();
-		childIdNumbers = new LinkedList<String>();
+		family = new Family();
 	}
 	
 	public int getMonthlySalary() {
@@ -59,12 +54,8 @@ public class Employee {
 		return this.annualDeductible;
 	}
 	
-	public boolean getIsMarried() {
-		return spouseIdNumber.equals("");
-	}
-	
-	public int getNumberOfChildren() {
-		return childIdNumbers.size();
+	public Family getFamily() {
+		return this.family;
 	}
 	
 	/**
@@ -94,16 +85,6 @@ public class Employee {
 		this.otherMonthlyIncome = income;
 	}
 	
-	public void setSpouse(String spouseName, String spouseIdNumber) {
-		this.spouseName = spouseName;
-		this.spouseIdNumber = idNumber;
-	}
-	
-	public void addChild(String childName, String childIdNumber) {
-		childNames.add(childName);
-		childIdNumbers.add(childIdNumber);
-	}
-	
 	public int getAnnualIncomeTax() {
 		
 		//Menghitung berapa lama pegawai bekerja dalam setahun ini, jika pegawai sudah bekerja dari tahun sebelumnya maka otomatis dianggap 12 bulan.
@@ -112,5 +93,40 @@ public class Employee {
 		int monthWorkingInYear = (date.getYear() == dateJoined.getYear()) ? date.getMonthValue() - dateJoined.getMonthValue() : 12;
 		
 		return TaxFunction.calculateTax(this, monthWorkingInYear);
+	}
+}
+
+class Family {
+	private String spouseName;
+	private String spouseIdNumber;
+
+	private List<String> childNames;
+	private List<String> childIdNumbers;
+	
+	public Family() {
+		childNames = new LinkedList<String>();
+		childIdNumbers = new LinkedList<String>();
+	}
+	
+	public void setSpouse(String spouseName, String spouseIdNumber) {
+		this.spouseName = spouseName;
+		this.spouseIdNumber = spouseIdNumber;
+	}
+	
+	public String getSpouseName() {
+		return spouseName;
+	}
+	
+	public boolean getIsMarried() {
+		return spouseIdNumber.equals("");
+	}
+	
+	public int getNumberOfChildren() {
+		return childIdNumbers.size();
+	}
+	
+	public void addChild(String childName, String childIdNumber) {
+		childNames.add(childName);
+		childIdNumbers.add(childIdNumber);
 	}
 }
